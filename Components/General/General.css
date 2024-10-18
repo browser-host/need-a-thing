@@ -1,0 +1,33 @@
+
+:root {
+  --gutter: 16px;
+  --half-gutter: 8px;
+  --border-radius-med: 5px;
+}
+
+/* For common reusable comnponents */
+
+
+.card {
+  padding: 12px;
+  border-radius: var(--border-radius-med);
+  background: var(--bg-card);
+}
+
+
+
+
+/* General settings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;  
+}
+
+body {
+  padding: var(--gutter);
+}

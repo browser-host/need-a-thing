@@ -1,0 +1,14 @@
+
+
+:root {
+  --bg-main: #161B21;
+  --bg-card: #202730;
+  --bg-link-hover: rgba(255,255,255,0.1);
+  --bg-notepad: #161B21;
+
+  --text-color: white;
+
+  --banner-url: url('./banners/ff.gif');
+
+  --icon-filter: invert(100%) sepia(1%) saturate(3748%) hue-rotate(270deg) brightness(120%) contrast(100%);
+}

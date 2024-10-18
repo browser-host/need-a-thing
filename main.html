@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Need a Thing</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="Components/General/General.css" />
+  <link rel="stylesheet" href="Themes/dark.css" />
+  <link rel="stylesheet" href="main.css" />
+
+  <!-- JS -->
+  <script src="main.js"></script>
+  <script src="links.js"></script>
+  
+  <!-- Quill (rich text editor) -->
+  <link href="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.snow.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/quill@2/dist/quill.js"></script>
+
+</head>
+<body>
+  <div class="layout">
+
+    <div class="sidebar-container card">
+      <div id="links-list-container">
+        <div class="card-header">
+          Quick Links
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar-container card">
+      <div id="search-bar-container">
+        <div class="title" data-engine-index="0" id="search-bar-title">
+          consult the oracle
+        </div>
+        <div class="search">
+          <input id="searchBarInput" autocomplete="off"/>
+        </div>
+      </div>
+    </div>
+    <div class="large-left-container card">l left</div>
+    <div class="small-left-container card">
+      <div id="clock-container">
+        <div id="dateTime"></div>
+      </div>
+    </div>
+    <div class="small-right-horizontal-container card">
+      <div id="banner-gif-container"></div>
+    </div>
+    <div class="large-right-container card">
+      <div id="notepad-container">
+        <a id="notepad-logo-container" href="https://github.com/slab/quill?tab=readme-ov-file">
+          <img src="./icons/quill.svg" />
+        </a>
+        <span id="garbage-logo-container" title="Empty Notepad">
+          <img src="./icons/garbage.svg" />
+        </span>
+
+        <div id="notepad-editor"></div>
+
+      </div>
+    </div>
+    <div class="small-left-vertical-container card">sm left vertical</div>
+
+  </div>
+</body>
+</html>
