@@ -33,6 +33,12 @@ const BookMarkLinksObj = {
       title: "Asana",
       href: "https://app.asana.com/0/home/1207307597538793"
     },
+  ],
+  Tools: [
+    {
+      title: 'ChatGPT',
+      href: 'https://chatgpt.com/'
+    },
     {
       title: "HTML Color Picker",
       href: "https://www.google.com/search?q=html+color+picker&sca_esv=cfca0b9ef384e957&sca_upv=1&rlz=1C1GCEB_enCA1107CA1107&ei=jOdUZt6NKLmHptQP0temyAY&oq=html+col&gs_lp=Egxnd3Mtd2l6LXNlcnAiCGh0bWwgY"
@@ -40,13 +46,33 @@ const BookMarkLinksObj = {
     {
       title: "Color from Picture",
       href: "https://imagecolorpicker.com/"
+    },
+    {
+      title: 'SVG Crop',
+      href: 'https://svgcrop.com/'
+    },
+    {
+      title: 'SVG Viewer',
+      href: 'https://www.svgviewer.dev/'
+    },
+    {
+      title: 'Clipboard Inspector',
+      href: 'https://evercoder.github.io/clipboard-inspector/'
+    },
+    {
+      title: 'Figma',
+      href: 'https://www.figma.com/'
     }
   ],
   Other: [
     {
+      title: 'Keeper Vault',
+      href: 'https://keepersecurity.ca/vault/#'
+    },
+    {
       title: "Dayforce",
       href: "https://sso.dayforcehcm.com/SSOLogin.aspx"
-    }
+    },
   ]
 }
 

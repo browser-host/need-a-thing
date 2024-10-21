@@ -113,12 +113,12 @@ const lookup = {"imdb":"/","deepl":"https://deepl.com/","reddit":"https://reddit
 
 function createLinksList(){
   var linksContent = "";
-  var tabIndexCounter = 1;
+  var tabIndexCounter = 2;
 
   Object.keys(BookMarkLinksObj).forEach((group) => {
     linksContent += `
       <div class="link-group">
-          <div class="header">${group}</div>
+        <div class="header">${group}</div>
     `;
     
     BookMarkLinksObj[group].forEach((link) => {
