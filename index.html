@@ -27,6 +27,7 @@
 <body>
   <div class="layout">
 
+    <!-- Quick links -->
     <div class="sidebar-container card">
       <div id="links-list-container">
         <div class="card-header">
@@ -35,6 +36,7 @@
       </div>
     </div>
 
+    <!-- search bar -->
     <div class="topbar-container card">
       <div id="search-bar-container">
         <div class="title" data-engine-index="0" id="search-bar-title">
@@ -45,15 +47,65 @@
         </div>
       </div>
     </div>
-    <div class="large-left-container card">l left</div>
+
+    <!-- To dos -->
+    <div class="large-left-container card">
+      <div id="to-do-container">
+        <div class="card-header">
+          <span>To Dos</span>
+          <div id="new-task-container">
+            <input />
+          </div>
+        </div>
+
+        <div id="eis-matrix-container">
+          <span></span>
+          <span class="label x">Urgent</span>
+          <span class="label x">Not Urgent</span>
+          <span class="label y">Important</span>
+          <div class="tasks-container tasks-do">
+            <div class="task">
+              <span class="">
+                <img src="icons/checkmark.svg" class=""/>
+              </span>
+              <span class="task-title">
+                The title of the task
+              </span>
+              <span class="">Add</span>
+            </div>
+
+            <div class="task">
+              <span class="task-icon">
+                <img src="icons/circle-dashed.svg" class=""/>
+              </span>
+              <span class="task-title">
+                Do something special
+              </span>
+              <span class="task-extra">Edit</span>
+            </div>
+
+          </div>
+          <div class="tasks-container tasks-schedule"></div>
+          <span class="label y">Not Important</span>
+          <div class="tasks-container tasks-delegate"></div>
+          <div class="tasks-container tasks-dont"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Clock -->
     <div class="small-left-container card">
       <div id="clock-container">
         <div id="dateTime"></div>
       </div>
     </div>
+
+    <!-- GIF -->
     <div class="small-right-horizontal-container card">
       <div id="banner-gif-container"></div>
     </div>
+
+    <!-- Notepad -->
     <div class="large-right-container card">
       <div id="notepad-container">
         <a id="notepad-logo-container" href="https://github.com/slab/quill?tab=readme-ov-file">
@@ -64,9 +116,10 @@
         </span>
 
         <div id="notepad-editor"></div>
-
       </div>
     </div>
+
+    <!-- Nothing yet -->
     <div class="small-left-vertical-container card">sm left vertical</div>
 
   </div>
