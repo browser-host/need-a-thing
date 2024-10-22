@@ -225,13 +225,21 @@ html {
 #to-do-container > .card-header {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
+}
+
+#to-do-container > .card-header > span {
+  flex: 2;
 }
 
 #new-task-container {
-  width: 60%;
+  flex: 3;
 }
 
 #new-task-container > input {
+  background: var(--bg-notepad);
+  color: white;
+  border: none;
   width: 100%;
   border-radius: var(--border-radius-med);
   outline: none;
@@ -241,7 +249,7 @@ html {
 #eis-matrix-container {
   flex: 1;
   display: grid;
-  grid-template-columns: 20px 1fr 1fr;
+  grid-template-columns: 20px minmax(0, 1fr) minmax(0, 1fr);
   grid-template-rows: 20px 1fr 1fr;
   gap: 8px;
 }
@@ -250,6 +258,7 @@ html {
   background: var(--bg-notepad);
   border-radius: var(--border-radius-med);
   position: relative;
+  padding-top: 4px;
 }
 
 #eis-matrix-container .label {
@@ -263,13 +272,43 @@ html {
 }
 
 .tasks-container .task {
-  padding: 0 8px;
+  padding: 0 3px 0 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
 }
 
+.task > .task-icon {
+  height: 24px;
+  width: 24px;
+}
+
+.task-icon > img {
+  filter: var(--icon-filter);
+}
+
+.task-icon:hover .complete {
+  filter: var(--icon-filter-red);
+}
+
+.task-icon:hover .incomplete {
+  filter: var(--icon-filter-green);
+}
+
 .task > .task-title {
   flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.task > .task-extra {
+  padding: 2px 5px;
+  border-radius: var(--border-radius-med);
+}
+
+.task > .task-extra:hover {
+  background: var(--bg-link-hover);
+  cursor: pointer;
 }

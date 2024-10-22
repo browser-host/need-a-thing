@@ -11,4 +11,6 @@
   --banner-url: url('./banners/ff.gif');
 
   --icon-filter: invert(100%) sepia(1%) saturate(3748%) hue-rotate(270deg) brightness(120%) contrast(100%);
+  --icon-filter-green: invert(85%) sepia(37%) saturate(673%) hue-rotate(46deg) brightness(88%) contrast(86%);
+  --icon-filter-red: invert(38%) sepia(56%) saturate(1688%) hue-rotate(329deg) brightness(81%) contrast(84%);
 }

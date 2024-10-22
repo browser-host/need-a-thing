@@ -5,6 +5,7 @@ function mainSetup(){
   setupClock();
   setupNotepad();
   setupSearchBar();
+  setupToDos();
 }
 
 
@@ -199,6 +200,72 @@ function setupNotepad(){
 //          To Dos
 // * * * * * * * * * * * * *
 
+
+// setup
+function setupToDos(){
+  var input = document.getElementById('new-task-input');
+
+  input.onkeyup = (e) => {
+    if(e.key === 'Enter'){
+      const newTask = createTask(input.value);
+      document.getElementById('tasks-dont').insertAdjacentHTML('beforeend', newTask);
+      input.value = "";
+    }
+  }
+
+  loadTasks();
+}
+
+
+
+const toDoLocationString = "todo-data";
+
+// loading tasks from localstorage
+function loadTasks(){
+  // complete, title, details
+  // bool, string, string
+
+  
+  const todoData = JSON.parse(localStorage.getItem(toDoLocationString));
+  
+  todoData['tasks'].forEach((task) => {
+    var newTask = createTask(task.title);
+    document.getElementById('tasks-dont').insertAdjacentHTML('beforeend', newTask);
+  });
+}
+
+
+
+// storing tasks
+function storeTasks(){
+  const taskData = {
+    tasks: [
+      {title: 'first task'},
+      {title: 'second task'}
+    ]
+  }
+
+  localStorage.setItem(toDoLocationString, JSON.stringify(taskData));
+}
+
+
+// drag n drop of tasks
+
+
+
+function createTask(inputTitle){
+  return `
+    <div class="task">
+      <span class="task-icon">
+        <img src="icons/circle-dashed.svg" class="incomplete"/>
+      </span>
+      <span class="task-title">
+        ${inputTitle}
+      </span>
+      <span class="task-extra edit">Edit</span>
+    </div>
+  `
+}
 
 
 
