@@ -199,39 +199,69 @@ function setupNotepad(){
 // * * * * * * * * * * * * *
 //          To Dos
 // * * * * * * * * * * * * *
+const toDoLocationString = "todo-data";
 
 
 // setup
 function setupToDos(){
   var input = document.getElementById('new-task-input');
+  renderTasks();
 
   input.onkeyup = (e) => {
     if(e.key === 'Enter'){
-      const newTask = createTask(input.value);
-      document.getElementById('tasks-dont').insertAdjacentHTML('beforeend', newTask);
+      var todoData = JSON.parse(localStorage.getItem(toDoLocationString));
+      var newTask = {
+        parent: 'tasks-dont',
+        title: input.value,
+        complete: false,
+        extras: ''
+      }
+
+      const key = Date.now() - 980838000000;
+      if(todoData && todoData['tasks']){
+        todoData['tasks'][Date.now() - 980838000000] = newTask;
+      } else {
+        todoData = {
+          tasks: {
+            [key] : newTask
+          }
+        }
+      }
+
+      localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+
       input.value = "";
     }
+    renderTasks();
   }
 
-  loadTasks();
+  
 }
 
 
 
-const toDoLocationString = "todo-data";
 
 // loading tasks from localstorage
-function loadTasks(){
-  // complete, title, details
-  // bool, string, string
-
-  
+function renderTasks(){
+  const taskLocations = ['tasks-do', 'tasks-schedule', 'tasks-delegate', 'tasks-dont'];
   const todoData = JSON.parse(localStorage.getItem(toDoLocationString));
   
-  todoData['tasks'].forEach((task) => {
-    var newTask = createTask(task.title);
-    document.getElementById('tasks-dont').insertAdjacentHTML('beforeend', newTask);
-  });
+  if(todoData && todoData['tasks']){
+    taskLocations.forEach(location => {
+      var newTaskHtml = "";
+
+      Object.keys(todoData['tasks']).forEach((key) => {
+        task = todoData['tasks'][key];
+        console.log(task);
+        if(task.parent === location){
+          var newTask = createTask(task.title);
+          newTaskHtml += newTask;
+        }
+      });
+
+      document.getElementById(location).innerHTML = newTaskHtml;
+    });
+  }
 }
 
 
@@ -239,10 +269,13 @@ function loadTasks(){
 // storing tasks
 function storeTasks(){
   const taskData = {
-    tasks: [
+    'tasks': [
+      { title: 'first task', complete: false, },
+      {title: 'second task'},
       {title: 'first task'},
-      {title: 'second task'}
-    ]
+      {title: 'second task'},
+      {title: 'third task'},
+    ],
   }
 
   localStorage.setItem(toDoLocationString, JSON.stringify(taskData));
@@ -253,7 +286,7 @@ function storeTasks(){
 
 
 
-function createTask(inputTitle){
+function createTask(inputTitle, complete, extra ){
   return `
     <div class="task">
       <span class="task-icon">
