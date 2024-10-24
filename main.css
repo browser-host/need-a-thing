@@ -312,3 +312,9 @@ html {
   background: var(--bg-link-hover);
   cursor: pointer;
 }
+
+
+.task.hovering {
+  position: fixed;
+  
+}

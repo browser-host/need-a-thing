@@ -201,12 +201,12 @@ function setupNotepad(){
 // * * * * * * * * * * * * *
 const toDoLocationString = "todo-data";
 
-
 // setup
 function setupToDos(){
   var input = document.getElementById('new-task-input');
   renderTasks();
 
+  // setup input for new tasks
   input.onkeyup = (e) => {
     if(e.key === 'Enter'){
       var todoData = JSON.parse(localStorage.getItem(toDoLocationString));
@@ -234,12 +234,7 @@ function setupToDos(){
     }
     renderTasks();
   }
-
-  
 }
-
-
-
 
 // loading tasks from localstorage
 function renderTasks(){
@@ -250,45 +245,29 @@ function renderTasks(){
     taskLocations.forEach(location => {
       var newTaskHtml = "";
 
+      // create tasks
       Object.keys(todoData['tasks']).forEach((key) => {
         task = todoData['tasks'][key];
         console.log(task);
         if(task.parent === location){
-          var newTask = createTask(task.title);
+          var newTask = createTask(key, task.title);
           newTaskHtml += newTask;
         }
       });
 
       document.getElementById(location).innerHTML = newTaskHtml;
     });
+
+    // add listeners
+    Object.keys(todoData['tasks']).forEach((key) => {
+      document.getElementById(key).onmousedown = taskMouseDownListener;
+    });
   }
 }
 
-
-
-// storing tasks
-function storeTasks(){
-  const taskData = {
-    'tasks': [
-      { title: 'first task', complete: false, },
-      {title: 'second task'},
-      {title: 'first task'},
-      {title: 'second task'},
-      {title: 'third task'},
-    ],
-  }
-
-  localStorage.setItem(toDoLocationString, JSON.stringify(taskData));
-}
-
-
-// drag n drop of tasks
-
-
-
-function createTask(inputTitle, complete, extra ){
+function createTask(id, inputTitle, complete, extra ){
   return `
-    <div class="task">
+    <div id="${id}" class="task">
       <span class="task-icon">
         <img src="icons/circle-dashed.svg" class="incomplete"/>
       </span>
@@ -299,6 +278,38 @@ function createTask(inputTitle, complete, extra ){
     </div>
   `
 }
+
+function taskMouseDownListener(e){
+  const div = this;
+  this.classList.add('hovering');
+  const mouseX = e.offsetX;
+  const mouseY = e.offsetY;
+
+  document.onmousemove = (e) => {
+    div.style.left = (e.pageX - mouseX) + 'px';
+    div.style.top = (e.pageY - mouseY) + 'px';
+  };
+  // set hover container listner
+  this.onmouseup = taskMouseUpListener;
+
+  // follow mouse
+
+
+
+}
+
+
+// when hovering over a new container of tasks
+function taskContainerHoverListener(){
+
+}
+
+// when letting go of the task
+function taskMouseUpListener(){
+  this.classList.remove('hovering');
+  document.onmousemove = null;
+}
+
 
 
 
