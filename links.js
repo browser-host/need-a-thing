@@ -6,6 +6,10 @@ const BookMarkLinksObj = {
       href: "https://portal.maple.ca/"
     },
     {
+      title: "Dev",
+      href: "https://portal-dev.maple.ca/"
+    },
+    {
       title: "QA",
       href: "https://portal-qa.maple.ca/"
     },
@@ -38,6 +42,10 @@ const BookMarkLinksObj = {
     {
       title: 'ChatGPT',
       href: 'https://chatgpt.com/'
+    },
+    {
+      title: 'Veryfi',
+      href: 'https://app.veryfi.com/auth/login/?ref=header'
     },
     {
       title: "HTML Color Picker",
