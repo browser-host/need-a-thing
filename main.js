@@ -250,7 +250,7 @@ function renderTasks(){
         task = todoData['tasks'][key];
         console.log(task);
         if(task.parent === location){
-          var newTask = createTask(key, task.title);
+          var newTask = createTask(key, task.title, task.completem, task.extras);
           newTaskHtml += newTask;
         }
       });
@@ -258,58 +258,69 @@ function renderTasks(){
       document.getElementById(location).innerHTML = newTaskHtml;
     });
 
-    // add listeners
-    Object.keys(todoData['tasks']).forEach((key) => {
-      document.getElementById(key).onmousedown = taskMouseDownListener;
-    });
+    // drag n drop events
+    document.querySelectorAll('.task').forEach((task) => {
+      task.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', e.target.id);
+      });
+    })
+    
+    document.querySelectorAll('.tasks-container').forEach((container) => {
+      container.addEventListener('drop', (event) => {
+        if(event.target == event.currentTarget){
+          event.preventDefault();
+          const taskId = event.dataTransfer.getData('text/plain');
+          
+          // move the element
+          const dragTask = document.getElementById(taskId);
+          event.target.appendChild(dragTask);
+          
+          // update the data obj
+          todoData['tasks'][taskId].parent = event.target.id;
+          localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+        }
+      });
+
+      container.addEventListener('dragover', (event) => {
+        event.preventDefault();
+      });
+    })
+
+    // mark as complete
+    document.querySelectorAll('.task-icon-container').forEach((checkmark) => {
+      checkmark.addEventListener('click', (event) => {
+        const icon = event.target;
+        if(icon.classList.contains('incomplete')){
+          todoData['tasks'][icon.parentElement.id].complete = true;
+          icon.classList.replace('incomplete', 'complete');
+        } else {
+          todoData['tasks'][icon.parentElement.id].complete = false;
+          icon.classList.replace('complete', 'incomplete');
+        }
+        localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+      });
+    })
+
+    // edit extras
+    document.querySelectorAll('.task-extra').forEach((editButton) => {
+      editButton.addEventListener('click', (e) => {
+        
+      });
+    })
   }
 }
 
 function createTask(id, inputTitle, complete, extra ){
   return `
-    <div id="${id}" class="task">
-      <span class="task-icon">
-        <img src="icons/circle-dashed.svg" class="incomplete"/>
-      </span>
+    <div id="${id}" class="task" draggable="true">
+      <span class="task-icon-container ${complete ? "complete" : "incomplete"}"></span>
       <span class="task-title">
         ${inputTitle}
       </span>
-      <span class="task-extra edit">Edit</span>
+      <span class="task-extra edit" data-extra-text="${extra}">${extra == "" ? "Add" : "Edit"}</span>
     </div>
   `
 }
-
-function taskMouseDownListener(e){
-  const div = this;
-  this.classList.add('hovering');
-  const mouseX = e.offsetX;
-  const mouseY = e.offsetY;
-
-  document.onmousemove = (e) => {
-    div.style.left = (e.pageX - mouseX) + 'px';
-    div.style.top = (e.pageY - mouseY) + 'px';
-  };
-  // set hover container listner
-  this.onmouseup = taskMouseUpListener;
-
-  // follow mouse
-
-
-
-}
-
-
-// when hovering over a new container of tasks
-function taskContainerHoverListener(){
-
-}
-
-// when letting go of the task
-function taskMouseUpListener(){
-  this.classList.remove('hovering');
-  document.onmousemove = null;
-}
-
 
 
 

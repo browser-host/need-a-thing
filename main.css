@@ -215,6 +215,7 @@ html {
 /* * * * * * * * * * * * * *
           To Do
 * * * * * * * * * * * * * */
+
 #to-do-container {
   height: 100%;
   width: 100%;
@@ -279,20 +280,25 @@ html {
   gap: 8px;
 }
 
-.task > .task-icon {
+.task > .task-icon-container {
   height: 24px;
   width: 24px;
-}
-
-.task-icon > img {
   filter: var(--icon-filter);
 }
 
-.task-icon:hover .complete {
+.task > .task-icon-container.incomplete {
+  background-image: url(./icons/circle-dashed.svg);
+}
+
+.task > .task-icon-container.complete {
+  background-image: url(./icons/checkmark.svg);
+}
+
+.task > .task-icon-container.complete:hover {
   filter: var(--icon-filter-red);
 }
 
-.task-icon:hover .incomplete {
+.task > .task-icon-container.incomplete:hover {
   filter: var(--icon-filter-green);
 }
 
@@ -317,4 +323,29 @@ html {
 .task.hovering {
   position: fixed;
   
+}
+
+
+
+/* * * * * * * * * * * * * *
+          To Do
+* * * * * * * * * * * * * */
+
+#extras-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,0.5);
+}
+
+#extras-edit-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 65%;
+  width: 30%;
+  background: var(--bg-main);
 }
