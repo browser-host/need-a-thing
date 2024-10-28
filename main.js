@@ -305,6 +305,7 @@ function renderTasks(){
     document.querySelectorAll('.task-extra').forEach((editButton) => {
       editButton.addEventListener('click', (e) => {
         document.getElementById('extras-modal').style.display = "block";
+        
       });
     })
   }
@@ -336,4 +337,8 @@ const debounce = (callback, wait) => {
       callback(...args);
     }, wait);
   };
+}
+
+function closeModal(){
+  document.getElementById('extras-modal').style.display = "none";
 }
