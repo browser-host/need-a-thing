@@ -328,10 +328,11 @@ html {
 
 
 /* * * * * * * * * * * * * *
-          To Do
+          Extras
 * * * * * * * * * * * * * */
 
 #extras-modal {
+  display: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -347,5 +348,30 @@ html {
   transform: translate(-50%, -50%);
   height: 65%;
   width: 30%;
-  background: var(--bg-main);
+  background: var(--bg-card);
+  padding: 16px;
+}
+
+
+#extras-edit-container > input {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  background: var(--bg-notepad);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--border-radius-med);
+}
+
+#task-title-edit {
+  height: 30px;
+}
+
+#task-extra-edit {
+  height: 110px;
+}
+
+#extras-button-container {
+  display: flex;
+  justify-content: space-between;
 }

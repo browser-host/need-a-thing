@@ -304,7 +304,7 @@ function renderTasks(){
     // edit extras
     document.querySelectorAll('.task-extra').forEach((editButton) => {
       editButton.addEventListener('click', (e) => {
-        
+        document.getElementById('extras-modal').style.display = "block";
       });
     })
   }
