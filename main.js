@@ -248,7 +248,6 @@ function renderTasks(){
       // create tasks
       Object.keys(todoData['tasks']).forEach((key) => {
         task = todoData['tasks'][key];
-        console.log(task);
         if(task.parent === location){
           var newTask = createTask(key, task.title, task.completem, task.extras);
           newTaskHtml += newTask;
@@ -305,7 +304,9 @@ function renderTasks(){
     document.querySelectorAll('.task-extra').forEach((editButton) => {
       editButton.addEventListener('click', (e) => {
         document.getElementById('extras-modal').style.display = "block";
-        
+        var taskEdit = document.getElementById('task-extra-edit');
+        taskEdit.dataset.taskId = editButton.parentElement.id;
+        taskEdit.value = editButton.dataset.extraText;
       });
     })
   }
@@ -323,6 +324,20 @@ function createTask(id, inputTitle, complete, extra ){
   `
 }
 
+function saveExtras(){
+  const taskEdit = document.getElementById('task-extra-edit');
+  const extraString = taskEdit.value;
+  const taskId = taskEdit.dataset.taskId;
+  const todoData = JSON.parse(localStorage.getItem(toDoLocationString));
+  
+  todoData['tasks'][taskId].extras = extraString;
+  localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+}
+
+function closeModal(){
+  document.getElementById('extras-modal').style.display = "none";
+}
+
 
 
 // * * * * * * * * * * * * *
@@ -337,8 +352,4 @@ const debounce = (callback, wait) => {
       callback(...args);
     }, wait);
   };
-}
-
-function closeModal(){
-  document.getElementById('extras-modal').style.display = "none";
 }

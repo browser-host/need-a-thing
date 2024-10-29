@@ -101,7 +101,6 @@
     <!-- Nothing yet -->
     <div class="small-left-vertical-container card">sm left vertical</div>
 
-
     <!-- extras modal -->
     <div id="extras-modal">
       <span id="modal-exit"></span>
@@ -109,10 +108,10 @@
         <div class="task-title">Task Title</div>
         <input type="textarea" id="task-title-edit"/>
         <div class="task-title">Extra Details</div>
-        <input type="textarea" id="task-extra-edit"/>
+        <input type="textarea" id="task-extra-edit" data-task-id=""/>
         <div id="extras-button-container">
           <button onclick="closeModal()">Exit</button>
-          <button>Save</button>
+          <button onclick="saveExtras()">Save</button>
         </div>
       </div>
     </div>
