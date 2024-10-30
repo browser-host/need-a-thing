@@ -302,11 +302,13 @@ function renderTasks(){
 
     // edit extras
     document.querySelectorAll('.task-extra').forEach((editButton) => {
+      const parentId = editButton.parentElement.id;
       editButton.addEventListener('click', (e) => {
         document.getElementById('extras-modal').style.display = "block";
         var taskEdit = document.getElementById('task-extra-edit');
         taskEdit.dataset.taskId = editButton.parentElement.id;
-        taskEdit.value = editButton.dataset.extraText;
+        taskEdit.value = todoData['tasks'][parentId].extras;
+        document.getElementById('task-title-edit').value = todoData['tasks'][parentId].title;
       });
     })
   }
@@ -316,22 +318,26 @@ function createTask(id, inputTitle, complete, extra ){
   return `
     <div id="${id}" class="task" draggable="true">
       <span class="task-icon-container ${complete ? "complete" : "incomplete"}"></span>
-      <span class="task-title">
-        ${inputTitle}
-      </span>
-      <span class="task-extra edit" data-extra-text="${extra}">${extra == "" ? "Add" : "Edit"}</span>
+      <span class="task-title">${inputTitle}</span>
+      <span class="task-extra edit">${extra == "" ? "Add" : "Edit"}</span>
     </div>
   `
 }
 
 function saveExtras(){
-  const taskEdit = document.getElementById('task-extra-edit');
-  const extraString = taskEdit.value;
-  const taskId = taskEdit.dataset.taskId;
   const todoData = JSON.parse(localStorage.getItem(toDoLocationString));
+
+  const taskEdit = document.getElementById('task-extra-edit');
+  const titleEdit = document.getElementById('task-title-edit');
+  const extraString = taskEdit.value;
+  const titleString = titleEdit.value;
+  const taskId = taskEdit.dataset.taskId;
   
   todoData['tasks'][taskId].extras = extraString;
+  todoData['tasks'][taskId].title = titleString;
   localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+  renderTasks();
+  closeModal();
 }
 
 function closeModal(){
