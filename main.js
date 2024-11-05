@@ -257,31 +257,47 @@ function renderTasks(){
       document.getElementById(location).innerHTML = newTaskHtml;
     });
 
-    // drag n drop events
+    // drag events
     document.querySelectorAll('.task').forEach((task) => {
-      task.addEventListener('dragstart', (e) => {
-        e.dataTransfer.setData('text/plain', e.target.id);
+        task.addEventListener('dragstart', (e) => {
+          document.getElementById(e.target.id).classList.add('dragging');
+          e.dataTransfer.setData('text/plain', e.target.id);
       });
     })
     
-    document.querySelectorAll('.tasks-container').forEach((container) => {
+    // drop events
+    document.querySelectorAll('.drop-location').forEach((container) => {
       container.addEventListener('drop', (event) => {
+        container.classList.remove('dragged-over');
+
         if(event.target == event.currentTarget){
           event.preventDefault();
           const taskId = event.dataTransfer.getData('text/plain');
-          
-          // move the element
-          const dragTask = document.getElementById(taskId);
-          event.target.appendChild(dragTask);
-          
-          // update the data obj
-          todoData['tasks'][taskId].parent = event.target.id;
+          document.getElementById(taskId).classList.remove('dragging');
+
+          // drops on garbage
+          if(event.target.id == 'to-do-garbage'){
+            delete todoData['tasks'][taskId];
+          } else {
+            // move the element
+            const dragTask = document.getElementById(taskId);
+            event.target.appendChild(dragTask);
+            todoData['tasks'][taskId].parent = event.target.id;
+          }
+
           localStorage.setItem(toDoLocationString, JSON.stringify(todoData));
+          renderTasks();
         }
       });
 
       container.addEventListener('dragover', (event) => {
         event.preventDefault();
+        container.classList.add('dragged-over');
+      });
+
+      container.addEventListener('dragleave', (event) => {
+        event.preventDefault();
+        container.classList.remove('dragged-over');
       });
     })
 

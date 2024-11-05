@@ -217,6 +217,7 @@ html {
 * * * * * * * * * * * * * */
 
 #to-do-container {
+  position: relative;
   height: 100%;
   width: 100%;
   display: flex;
@@ -272,12 +273,17 @@ html {
   transform: rotate(-90deg);
 }
 
+.tasks-container.dragged-over {
+  border: 1px dashed white;
+}
+
 .tasks-container .task {
   padding: 0 3px 0 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 8px;
+  border-radius: var(--border-radius-med);
 }
 
 .task > .task-icon-container {
@@ -319,12 +325,38 @@ html {
   cursor: pointer;
 }
 
-
-.task.hovering {
-  position: fixed;
-  
+.task.dragging {
+    background: var(--bg-card);
 }
 
+#to-do-garbage {
+    z-index: 2;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 65px;
+    transform: translateX(calc(100% + 25px));
+    background: var(--bg-card);
+    border-radius: var(--border-radius-med);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#to-do-garbage.dragged-over {
+  border: 1px dashed white;
+}
+
+
+body:has(.task.dragging) #to-do-garbage {
+  display: flex;
+}
+
+#to-do-garbage > img {
+    height: 40px;
+    width: 40px;
+}
 
 
 /* * * * * * * * * * * * * *
