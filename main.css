@@ -248,7 +248,28 @@ html {
   padding: 0 5px;
 }
 
-#eis-matrix-container {
+#kanban-container {
+  height: 100%;
+  display: flex;
+  gap: 8px;
+}
+
+#kanban-container > div {
+  height: 100%;
+  padding-top: 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tasks-container {
+  flex: 1;
+  background: var(--bg-notepad);
+  border-radius: var(--border-radius-med);
+}
+
+/* #eis-matrix-container {
   flex: 1;
   display: grid;
   grid-template-columns: 20px minmax(0, 1fr) minmax(0, 1fr);
@@ -257,8 +278,6 @@ html {
 }
 
 #eis-matrix-container > div {
-  background: var(--bg-notepad);
-  border-radius: var(--border-radius-med);
   position: relative;
   padding-top: 4px;
 }
@@ -267,7 +286,7 @@ html {
   text-align: center;
   align-content: center;
   white-space: nowrap;
-}
+} */
 
 #eis-matrix-container .label.y {
   transform: rotate(-90deg);
@@ -278,7 +297,7 @@ html {
 }
 
 .tasks-container .task {
-  padding: 0 3px 0 8px;
+  padding: 4px 3px 0 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -326,22 +345,22 @@ html {
 }
 
 .task.dragging {
-    background: var(--bg-card);
+  background: var(--bg-card);
 }
 
 #to-do-garbage {
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    width: 65px;
-    transform: translateX(calc(100% + 25px));
-    background: var(--bg-card);
-    border-radius: var(--border-radius-med);
-    display: none;
-    justify-content: center;
-    align-items: center;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 65px;
+  transform: translateX(calc(100% + 25px));
+  background: var(--bg-card);
+  border-radius: var(--border-radius-med);
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
 #to-do-garbage.dragged-over {
@@ -354,8 +373,9 @@ body:has(.task.dragging) #to-do-garbage {
 }
 
 #to-do-garbage > img {
-    height: 40px;
-    width: 40px;
+  height: 40px;
+  width: 40px;
+  filter: var(--icon-filter);
 }
 
 

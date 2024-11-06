@@ -211,7 +211,7 @@ function setupToDos(){
     if(e.key === 'Enter'){
       var todoData = JSON.parse(localStorage.getItem(toDoLocationString));
       var newTask = {
-        parent: 'tasks-dont',
+        parent: 'tasks-start',
         title: input.value,
         complete: false,
         extras: ''
@@ -238,7 +238,7 @@ function setupToDos(){
 
 // loading tasks from localstorage
 function renderTasks(){
-  const taskLocations = ['tasks-do', 'tasks-schedule', 'tasks-delegate', 'tasks-dont'];
+  const taskLocations = ['tasks-start', 'tasks-doing', 'tasks-review'];
   const todoData = JSON.parse(localStorage.getItem(toDoLocationString));
   
   if(todoData && todoData['tasks']){
