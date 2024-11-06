@@ -116,13 +116,15 @@ function createLinksList(){
   var linksContent = "";
   var tabIndexCounter = 2;
 
-  Object.keys(BookMarkLinksObj).forEach((group) => {
+  const linksData = JSON.parse(localStorage.getItem('links-data'));
+
+  Object.keys(linksData).forEach((group) => {
     linksContent += `
       <div class="link-group">
         <div class="header">${group}</div>
     `;
     
-    BookMarkLinksObj[group].forEach((link) => {
+    linksData[group].forEach((link) => {
       linksContent += `<a class="link" href="${link.href}" tabindex=${tabIndexCounter}>${link.title}</a>`;
       tabIndexCounter++;
     });
