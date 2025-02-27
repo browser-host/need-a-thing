@@ -3,14 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gradient Generator</title>
+    <title>Random Gradient Background</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            width: 100%; /* Ensure full width */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .button {
+            padding: 20px 40px;
+            font-size: 24px;
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-transform: uppercase;
+            z-index: 10;
+            display: none;
+            margin: 10px;
+        }
+        .button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <button id="generate">Generate Gradient</button>
-    <canvas id="gradientCanvas" width="3840" height="2160" style="display:none;"></canvas>
-    <a id="downloadLink" style="display:none;">Download Gradient</a>
+
+    <a class="button" id="downloadLink">Download Gradient</a>
+    <button class="button" id="regenerateButton">Regenerate Gradient</button>
+    <canvas id="gradientCanvas" width="3840" height="2160"></canvas>
 
     <script>
+        // Random color generator using HSL values
         function getRandomColor() {
             const hue = Math.floor(Math.random() * 360); // Random hue
             const saturation = Math.floor(Math.random() * 50) + 50; // 50% to 100% saturation
@@ -18,6 +58,7 @@
             return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
         }
 
+        // Function to generate the gradient and prepare the download link
         function generateGradient() {
             const canvas = document.getElementById('gradientCanvas');
             const ctx = canvas.getContext('2d');
@@ -40,16 +81,32 @@
             ctx.fillStyle = gradient;
             ctx.fillRect(0, 0, width, height);
 
+            // Set the body's background to the same gradient
+            document.body.style.background = gradient;
+
             // Prepare the download link
             const downloadLink = document.getElementById('downloadLink');
             const timestamp = Date.now(); // Get current time in ms since epoch
-            downloadLink.href = canvas.toDataURL('image/png');
+            downloadLink.href = canvas.toDataURL('image/png'); // Generate PNG data URL
             downloadLink.download = `gradient-${timestamp}.png`;
-            downloadLink.style.display = 'block';
+            downloadLink.style.display = 'block'; // Show download button
             downloadLink.textContent = 'Download Gradient';
+
+            // Show the regenerate button
+            const regenerateButton = document.getElementById('regenerateButton');
+            regenerateButton.style.display = 'block';
         }
 
-        document.getElementById('generate').addEventListener('click', generateGradient);
+        // Regenerate the gradient when the "Regenerate Gradient" button is clicked
+        document.getElementById('regenerateButton').onclick = function() {
+            generateGradient();
+        };
+
+        // On page load, generate a random gradient and set it as the background
+        window.onload = function() {
+            generateGradient();
+        };
     </script>
+
 </body>
 </html>
