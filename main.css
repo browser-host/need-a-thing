@@ -427,3 +427,33 @@ body:has(.task.dragging) #to-do-garbage {
   display: flex;
   justify-content: space-between;
 }
+
+
+
+
+
+/* * * * * * * * * * * * * *
+          Tools
+* * * * * * * * * * * * * */
+
+#tools-list {
+  list-style: none;
+}
+
+#tools-list li {
+  width: 100%;
+}
+
+#tools-list a {
+  display: inline-block;
+  width: 100%;
+  color: var(--text-color);
+  border-radius: var(--border-radius-med);
+  padding: 2px 4px;
+  text-decoration: none;
+  margin-bottom: 5px;
+}
+
+#tools-list a:hover {
+  background: var(--bg-link-hover);
+}

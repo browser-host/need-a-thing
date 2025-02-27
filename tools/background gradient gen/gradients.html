@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Generator</title>
+</head>
+<body>
+    <button id="generate">Generate Gradient</button>
+    <canvas id="gradientCanvas" width="3840" height="2160" style="display:none;"></canvas>
+    <a id="downloadLink" style="display:none;">Download Gradient</a>
+
+    <script>
+        function getRandomColor() {
+            const hue = Math.floor(Math.random() * 360); // Random hue
+            const saturation = Math.floor(Math.random() * 50) + 50; // 50% to 100% saturation
+            const lightness = Math.floor(Math.random() * 40) + 30; // 30% to 70% lightness
+            return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+        }
+
+        function generateGradient() {
+            const canvas = document.getElementById('gradientCanvas');
+            const ctx = canvas.getContext('2d');
+            const width = canvas.width;
+            const height = canvas.height;
+
+            // Clear the canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // Create a linear gradient
+            const gradient = ctx.createLinearGradient(0, 0, width, height);
+
+            // Add random color stops for more diversity
+            const stopCount = Math.floor(Math.random() * 3) + 2; // Between 2 and 4 stops
+            for (let i = 0; i < stopCount; i++) {
+                gradient.addColorStop(i / (stopCount - 1), getRandomColor());
+            }
+
+            // Fill the canvas with the gradient
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, width, height);
+
+            // Prepare the download link
+            const downloadLink = document.getElementById('downloadLink');
+            const timestamp = Date.now(); // Get current time in ms since epoch
+            downloadLink.href = canvas.toDataURL('image/png');
+            downloadLink.download = `gradient-${timestamp}.png`;
+            downloadLink.style.display = 'block';
+            downloadLink.textContent = 'Download Gradient';
+        }
+
+        document.getElementById('generate').addEventListener('click', generateGradient);
+    </script>
+</body>
+</html>

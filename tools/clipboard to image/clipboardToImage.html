@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clipboard to Image</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            max-width: 100%;
+            max-height: 400px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Clipboard to Image</h1>
+    <label>
+        <input type="checkbox" id="formatToggle"> JPEG
+    </label>
+    <button onclick="handlePaste()">Paste Image</button>
+    <br>
+    <img id="output" alt="Clipboard Image">
+
+    <script>
+        async function handlePaste() {
+            try {
+                const clipboardItems = await navigator.clipboard.read();
+                const format = document.getElementById('formatToggle').checked ? 'image/jpeg' : 'image/png';
+                
+                for (const item of clipboardItems) {
+                    if (item.types.includes(format)) {
+                        const blob = await item.getType(format);
+                        const url = URL.createObjectURL(blob);
+                        document.getElementById('output').src = url;
+                        
+                        // Automatically download the image
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `clipboard_image.${format.split('/')[1]}`;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        
+                        break;
+                    }
+                }
+            } catch (error) {
+                console.error("Error reading clipboard: ", error);
+            }
+        }
+    </script>
+</body>
+</html>

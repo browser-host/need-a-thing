@@ -6,6 +6,7 @@ function mainSetup(){
   setupNotepad();
   setupSearchBar();
   setupToDos();
+  setupTools();
 }
 
 
@@ -361,7 +362,6 @@ function saveExtras(){
 function closeModal(){
   document.getElementById('extras-modal').style.display = "none";
 }
-
 
 
 // * * * * * * * * * * * * *
