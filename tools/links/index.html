@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookmarks</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #fff;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+        .category {
+            width: 100%;
+        }
+        .category-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 16px;
+        }
+        .card {
+            aspect-ratio: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            text-align: center;
+            background-color: #1e1e1e;
+            transition: box-shadow 0.3s, border 0.3s;
+        }
+        .card:hover {
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2);
+            border: 2px solid transparent;
+            animation: rainbow-border 6s infinite;
+        }
+        @keyframes rainbow-border {
+            0% { border-color: red; }
+            25% { border-color: orange; }
+            50% { border-color: green; }
+            75% { border-color: blue; }
+            100% { border-color: red; }
+        }
+        .icon {
+            width: 75px;
+            height: 75px;
+            margin-bottom: 8px;
+            filter: invert(100%);
+        }
+        .link-title {
+            color: white;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="bookmarks"></div>
+
+    <script>
+        function createLinksList(){
+            var linksContent = "";
+            var tabIndexCounter = 2;
+
+            const linksData = JSON.parse(localStorage.getItem('links-data'));
+
+            Object.keys(linksData).forEach((group) => {
+                linksContent += `
+                <div class="link-group">
+                    <div class="header">${group}</div>
+                `;
+                
+                linksData[group].forEach((link) => {
+                linksContent += `<a class="link" href="${link.href}" tabindex=${tabIndexCounter}>${link.title}</a>`;
+                tabIndexCounter++;
+                });
+
+                linksContent += '</div>';
+            });
+
+            document.querySelector('#links-list-container').insertAdjacentHTML("beforeend", linksContent);
+        }
+            
+        const bookmarks = JSON.parse(localStorage.getItem('links-data'));
+        const container = document.getElementById("bookmarks");
+
+        Object.entries(bookmarks).forEach(([category, links]) => {
+            const categoryDiv = document.createElement("div");
+            categoryDiv.classList.add("category");
+
+            const title = document.createElement("h2");
+            title.classList.add("category-title");
+            title.textContent = category;
+            categoryDiv.appendChild(title);
+
+            const grid = document.createElement("div");
+            grid.classList.add("grid");
+
+            console.log(links);
+            links.forEach(({ title, href, icon }) => {
+                const card = document.createElement("a");
+                card.href = href;
+                card.target = "_blank";
+                card.rel = "noopener noreferrer";
+                card.classList.add("card");
+
+                const iconEl = document.createElement("img");
+                iconEl.classList.add("icon");
+                iconEl.src = `../../icons/${icon}.svg`;
+                iconEl.alt = title;
+
+                const text = document.createElement("div");
+                text.classList.add("link-title");
+                text.textContent = title;
+
+                card.appendChild(iconEl);
+                card.appendChild(text);
+                grid.appendChild(card);
+            });
+
+            categoryDiv.appendChild(grid);
+            container.appendChild(categoryDiv);
+        });
+    </script>
+</body>
+</html>
